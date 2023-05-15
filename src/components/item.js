@@ -2,10 +2,10 @@ import styled from "styled-components";
 import { useState } from "react";
 import bookmark_off from '../image/bookmark_off.png'
 import bookmark_on from '../image/bookmark_on.png'
+import { useSelector } from "react-redux";
 
-export default function Item({ item }) {
+export default function Item({item}) {
     const [modal, setModal] = useState(false)
-    
     const ItemBox = styled.div`
     width:300px;
     height:300px;
@@ -89,7 +89,6 @@ export default function Item({ item }) {
     `
 
     return (
-
         <div className="itemBox">
             <ItemBox item={item}>
             {modal ?
