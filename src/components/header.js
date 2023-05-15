@@ -55,7 +55,7 @@ const HeaderDiv = styled.div`
     `
 
 
-export default function Header({data}) {
+export default function Header() {
     const [dropdown, setDropdown] = useState(false)
     const dropdownHandler = () => {
        setDropdown(!dropdown)
@@ -76,8 +76,8 @@ export default function Header({data}) {
                     <div className="dropdownContents dropdown_click"><img src={bookmark_icon}/>&nbsp; <Link to='/bookmark'>북마크</Link></div>
                 </Dropdown> : ''}
                 <Routes>
-                    <Route path="/" element={<Main data={data}/>}></Route>
-                    <Route path="/list" element={<List />}></Route>
+                    <Route path="/" element={<Main />}></Route>
+                    <Route path="/list" element={<List/>}></Route>
                     <Route path="/bookmark" element={<Bookmark/>}></Route>
                 </Routes>
             </BrowserRouter>
