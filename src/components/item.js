@@ -4,7 +4,7 @@ import bookmark_off from '../image/bookmark_off.png'
 import bookmark_on from '../image/bookmark_on.png'
 import { useSelector } from "react-redux";
 
-export default function Item({item}) {
+export default function Item({ item }) {
     const [modal, setModal] = useState(false)
     const ItemBox = styled.div`
     width:300px;
@@ -24,6 +24,7 @@ export default function Item({item}) {
     display: flex;
     flex-wrap : wrap;
     margin: 10px 0px;
+    align-content: flex-start;
     `
 
     const ItemTitle = styled.span`
@@ -87,29 +88,79 @@ export default function Item({item}) {
     background-size: cover;
     box-shadow: 1px 1px 5px;
     `
-
-    return (
-        <div className="itemBox">
-            <ItemBox item={item}>
-            {modal ?
-                <ModalBackground onClick={() => setModal(!modal)}>
-                    <ModalImg item={item}></ModalImg>
-                </ModalBackground> :
-        ''}
+    const ItemBoxComponent = () => {
+        return (
+            <>
+                {modal ?
+                    <ModalBackground onClick={() => setModal(!modal)}>
+                        <ModalImg item={item}></ModalImg>
+                    </ModalBackground> :
+                    ''}
                 <ItemImage src={item['type'] === 'Brand' ? item.brand_image_url : item.image_url} onClick={() => setModal(!modal)}></ItemImage>
-                <Bookmark_img src={bookmark_off} onClick={()=>alert('북마크')}></Bookmark_img>
-                <SpanContainer>
-                    {item.title ? 
-                    (item.type === 'Category' ? <ItemTitle>#{item.title}</ItemTitle> : <ItemTitle>{item.title}</ItemTitle> )  : <ItemTitle>{item.brand_name}</ItemTitle>}
-                    {item.discountPercentage ? <ItemDiscount>{item.discountPercentage}%</ItemDiscount>
-                    : ''}
-                    {item.sub_title ? <ItemSubtitle>{item.sub_title}</ItemSubtitle> : ''}
-                    {item.price ? <ItemPrice>{item.price.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</ItemPrice> : ''}
-                    {item.follower ? <ItemFollower>관심 고객수</ItemFollower> : ''}
-                    {item.follower ? <Follower>{item.follower.toLocaleString()}명</Follower> : ''}
-                </SpanContainer>
-                
-            </ItemBox>
-        </div>
-    )
+                <Bookmark_img src={bookmark_off} onClick={() => alert('북마크')}></Bookmark_img>
+            </>
+        )
+    }
+
+    if (item.type === 'Product') {
+        return (
+            <div className="itemBox">
+                <ItemBox item={item}>
+                    <ItemBoxComponent />
+                    <SpanContainer>
+                        <ItemTitle>{item.title}</ItemTitle>
+                        <ItemDiscount>{item.discountPercentage}%</ItemDiscount>
+                        <ItemPrice>{item.price.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</ItemPrice>
+                    </SpanContainer>
+                </ItemBox>
+            </div>
+        )
+    }
+    else if (item.type === 'Category') {
+        return (
+            <div className="itemBox">
+                <ItemBox item={item}>
+                    <ItemBoxComponent />
+                    <SpanContainer>
+                        <ItemTitle>#{item.title}</ItemTitle>
+                    </SpanContainer>
+                </ItemBox>
+            </div>
+        )
+    } else if (item.type === 'Exhibition') {
+        return (
+            <div className="itemBox">
+                <ItemBox item={item}>
+                    <ItemBoxComponent />
+                    <SpanContainer>
+                        <ItemTitle style={{width:'300px'}}>{item.title}</ItemTitle>
+                        <ItemSubtitle>{item.sub_title}</ItemSubtitle>
+                    </SpanContainer>
+                </ItemBox>
+            </div>
+        )
+    } else if (item.type === 'Brand') {
+        return (
+            <div className="itemBox">
+                <ItemBox item={item}>
+                    <ItemBoxComponent />
+                    <SpanContainer>
+                        <ItemTitle>{item.brand_name}</ItemTitle>
+                        <ItemFollower>관심 고객수</ItemFollower>
+                        <Follower>{item.follower.toLocaleString()}명</Follower>
+                    </SpanContainer>
+                </ItemBox>
+            </div>
+        )
+    }
+    // <SpanContainer>
+    //     {item.title ? 
+    //     (item.type === 'Category' ? <ItemTitle>#{item.title}</ItemTitle> : <ItemTitle>{item.title}</ItemTitle> )  : <ItemTitle>{item.brand_name}</ItemTitle>}
+    //     {item.discountPercentage ? <ItemDiscount>{item.discountPercentage}%</ItemDiscount>
+    //     : ''}
+    //     {item.sub_title ? <ItemSubtitle>{item.sub_title}</ItemSubtitle> : ''}
+    //     {item.price ? <ItemPrice>{item.price.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</ItemPrice> : ''}
+    //     {item.follower ? <ItemFollower>관심 고객수</ItemFollower> : ''}
+    //     {item.follower ? <Follower>{item.follower.toLocaleString()}명</Follower> : ''}
+    // </SpanContainer>
 }

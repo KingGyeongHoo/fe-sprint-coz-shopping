@@ -1,21 +1,25 @@
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Footer from './components/footer';
 import Header from './components/header';
 import styled from 'styled-components';
+import { setItems } from './redux/action';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 function App() {
-  const [dropdown, setDropdown] = useState(false)
-  const Sample = styled.div`
-  height:2000px;
-  width:500px;
-  `
+  const dispatch = useDispatch()
+  useEffect(() => {
+    axios.get('http://cozshopping.codestates-seb.link/api/v1/products')
+    .then(res => {
+      dispatch(setItems(res.data))
+    })
+  }, [])
 
-    console.log(`현재상태 : ${dropdown}`)
   return (
     <div>
       <Header />
-      <Sample>뭘봐?</Sample>
       <Footer />
     </div>
   );

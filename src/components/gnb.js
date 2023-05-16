@@ -14,6 +14,8 @@ import { useSelector } from 'react-redux'
 const GnbContainer = styled.div`
 display: flex;
 flex-direction: row;
+align-items: center;
+justify-content: center;
 `
 const GnbDiv = styled.div`
 display: flex;
@@ -31,22 +33,52 @@ font-size: 14px;
 export default function Gnb() {
     const [isSelected, setIsSelected] = useState(0)
     const item = useSelector(state => state)
-    return (
-        <>
-            <GnbContainer>
-                <GnbDiv selected={isSelected === 0 ? 'true' : 'false'} onClick={() => setIsSelected(0)}><img src={img_all}></img><GnbSpan>전체보기</GnbSpan></GnbDiv>
-                <GnbDiv selected={isSelected === 1 ? 'true' : 'false'} onClick={() => setIsSelected(1)}><img src={img_category}></img><GnbSpan>상품</GnbSpan></GnbDiv>
-                <GnbDiv selected={isSelected === 2 ? 'true' : 'false'} onClick={() => setIsSelected(2)}><img src={img_product}></img><GnbSpan>카테고리</GnbSpan></GnbDiv>
-                <GnbDiv selected={isSelected === 3 ? 'true' : 'false'} onClick={() => setIsSelected(3)}><img src={img_brand}></img><GnbSpan>기획전</GnbSpan></GnbDiv>
-                <GnbDiv selected={isSelected === 4 ? 'true' : 'false'} onClick={() => setIsSelected(4)}><img src={img_exhibition}></img><GnbSpan>브랜드</GnbSpan></GnbDiv>
-            </GnbContainer>
-            {isSelected === 0 
-            ? ''
-            : (
-                isSelected === 1
-                ? <MainListContainer>{item.filter(el => el.type==='Product').map(el => <Item item={el}></Item>)}</MainListContainer>
-                : ''
-            )}
-        </>
-    )
+    const GnbComponent = () => {
+        return (
+        <GnbContainer>
+            <GnbDiv selected={isSelected === 0 ? 'true' : 'false'} onClick={() => setIsSelected(0)}><img src={img_all}></img><GnbSpan>전체보기</GnbSpan></GnbDiv>
+            <GnbDiv selected={isSelected === 1 ? 'true' : 'false'} onClick={() => setIsSelected(1)}><img src={img_category}></img><GnbSpan>상품</GnbSpan></GnbDiv>
+            <GnbDiv selected={isSelected === 2 ? 'true' : 'false'} onClick={() => setIsSelected(2)}><img src={img_product}></img><GnbSpan>카테고리</GnbSpan></GnbDiv>
+            <GnbDiv selected={isSelected === 3 ? 'true' : 'false'} onClick={() => setIsSelected(3)}><img src={img_brand}></img><GnbSpan>기획전</GnbSpan></GnbDiv>
+            <GnbDiv selected={isSelected === 4 ? 'true' : 'false'} onClick={() => setIsSelected(4)}><img src={img_exhibition}></img><GnbSpan>브랜드</GnbSpan></GnbDiv>
+        </GnbContainer>
+        )
+    }
+    switch (isSelected) {
+        case 0:
+            return (
+                <>
+                    <GnbComponent></GnbComponent>
+                    <MainListContainer>{item.map(el => <Item item={el}></Item>)}</MainListContainer>
+                </>
+            )
+        case 1:
+            return (
+                <>
+                    <GnbComponent></GnbComponent>
+                    <MainListContainer>{item.filter(el => el.type === 'Product').map(el => <Item item={el}></Item>)}</MainListContainer>
+                </>
+            )
+        case 2:
+            return (
+                <>
+                    <GnbComponent></GnbComponent>
+                    <MainListContainer>{item.filter(el => el.type === 'Category').map(el => <Item item={el}></Item>)}</MainListContainer>
+                </>
+            )
+        case 3:
+            return (
+                <>
+                    <GnbComponent></GnbComponent>
+                    <MainListContainer>{item.filter(el => el.type === 'Exhibition').map(el => <Item item={el}></Item>)}</MainListContainer>
+                </>
+            )
+        case 4:
+            return (
+                <>
+                    <GnbComponent></GnbComponent>
+                    <MainListContainer>{item.filter(el => el.type === 'Brand').map(el => <Item item={el}></Item>)}</MainListContainer>
+                </>
+            )
+    }
 }

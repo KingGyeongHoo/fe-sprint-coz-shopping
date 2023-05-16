@@ -30,3 +30,7 @@ code {
 .dropdownContents:hover:not(:first-child){
   background-color: aquamarine;
 }
+
+.itemBox{
+  height:350px;
+}
