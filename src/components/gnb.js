@@ -30,9 +30,8 @@ const GnbSpan = styled.span`
 font-size: 14px;
 `
 
-export default function Gnb() {
+export default function Gnb({item}) {
     const [isSelected, setIsSelected] = useState(0)
-    const item = useSelector(state => state)
     const GnbComponent = () => {
         return (
         <GnbContainer>

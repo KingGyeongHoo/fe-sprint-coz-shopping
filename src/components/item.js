@@ -3,9 +3,22 @@ import { useState } from "react";
 import bookmark_off from '../image/bookmark_off.png'
 import bookmark_on from '../image/bookmark_on.png'
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setBookmarks, removeBookmarks } from "../redux/action";
 
 export default function Item({ item }) {
     const [modal, setModal] = useState(false)
+    const dispatch = useDispatch()
+    const bookmark = useSelector(state => state.bookmark)
+    const isInBookmark = () =>{
+        if(bookmark.filter(el => el.id === item.id).length > 0){
+            return true
+        } else {
+            return false
+        }
+    }
+    console.log(isInBookmark())
+
     const ItemBox = styled.div`
     width:300px;
     height:300px;
@@ -28,12 +41,12 @@ export default function Item({ item }) {
     `
 
     const ItemTitle = styled.span`
-    width:200px;
+    width:250px;
     text-align: left;
     font-size: 20px;
     `
     const ItemDiscount = styled.span`
-    width:100px;
+    width:50px;
     text-align: right;
     color: blue;
     `
@@ -97,7 +110,9 @@ export default function Item({ item }) {
                     </ModalBackground> :
                     ''}
                 <ItemImage src={item['type'] === 'Brand' ? item.brand_image_url : item.image_url} onClick={() => setModal(!modal)}></ItemImage>
-                <Bookmark_img src={bookmark_off} onClick={() => alert('북마크')}></Bookmark_img>
+                {isInBookmark() ? 
+                <Bookmark_img src={bookmark_on} onClick={() => dispatch(removeBookmarks(item))}></Bookmark_img> :
+                <Bookmark_img src={bookmark_off} onClick={() => dispatch(setBookmarks(item))}></Bookmark_img>}
             </>
         )
     }
@@ -145,7 +160,7 @@ export default function Item({ item }) {
                 <ItemBox item={item}>
                     <ItemBoxComponent />
                     <SpanContainer>
-                        <ItemTitle>{item.brand_name}</ItemTitle>
+                        <ItemTitle style={{width:'200px'}}>{item.brand_name}</ItemTitle>
                         <ItemFollower>관심 고객수</ItemFollower>
                         <Follower>{item.follower.toLocaleString()}명</Follower>
                     </SpanContainer>

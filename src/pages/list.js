@@ -1,9 +1,10 @@
 import Gnb from "../components/gnb"
-export default function List({item}){
+import { useSelector } from "react-redux"
+export default function List(){
+    const item = useSelector(state => state.item)
     return (
         <div>
-            상품 리스트 페이지입니다
-            <Gnb></Gnb>
+            <Gnb item={item}></Gnb>
         </div>
     )
 }

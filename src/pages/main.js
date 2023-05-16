@@ -20,7 +20,8 @@ const MainListTitle = styled.p`
     `
 
 export default function Main() {
-    const item = useSelector(state => state)
+    const item = useSelector(state => state.item)
+    const bookmark = useSelector(state => state.bookmark)
     return (
         <div>
             <MainListTitle>상품 리스트</MainListTitle>
@@ -29,7 +30,11 @@ export default function Main() {
             </MainListContainer>
             <MainListTitle>북마크 리스트</MainListTitle>
             <MainListContainer>
-                {item.slice(0,4).map(el => <Item item={el} />)}
+                { bookmark === [] ? '' 
+                :
+                (bookmark.length < 4 ? bookmark.map(el => <Item item={el} />)
+                : bookmark.slice(0,4).map(el => <Item item={el} />))
+                }
             </MainListContainer>
         </div>
     )
