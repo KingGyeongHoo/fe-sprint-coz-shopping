@@ -101,12 +101,39 @@ export default function Item({ item }) {
     background-size: cover;
     box-shadow: 1px 1px 5px;
     `
+
+    const ModalBookmark_img = styled.img`
+    width:30px;
+    height:30px;
+    position: absolute;
+    top : 80%;
+    left : 17%;
+    right : 0;
+    bottom : 0;
+    z-index:6;
+    `
+    const ModalSpan = styled.span`
+    position: absolute;
+    top : 80%;
+    left : 19%;
+    right : 0;
+    bottom : 0;
+    z-index:6;
+    font-size:24px;
+    color:white;
+    font-weight:bold;
+    `
+
     const ItemBoxComponent = () => {
         return (
             <>
                 {modal ?
                     <ModalBackground onClick={() => setModal(!modal)}>
                         <ModalImg item={item}></ModalImg>
+                        {isInBookmark() ? 
+                <ModalBookmark_img src={bookmark_on} onClick={() => dispatch(removeBookmarks(item))}></ModalBookmark_img> :
+                <ModalBookmark_img src={bookmark_off} onClick={() => dispatch(setBookmarks(item))}></ModalBookmark_img>}
+                <ModalSpan>{item.title ? item.title : item.brand_name}</ModalSpan>
                     </ModalBackground> :
                     ''}
                 <ItemImage src={item['type'] === 'Brand' ? item.brand_image_url : item.image_url} onClick={() => setModal(!modal)}></ItemImage>
