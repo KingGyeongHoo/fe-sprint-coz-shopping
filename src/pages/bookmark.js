@@ -1,7 +1,10 @@
+import Gnb from "../components/gnb"
+import { useSelector } from "react-redux"
 export default function Bookmark(){
+    const bookmark = useSelector(state => state.bookmark)
     return (
         <div>
-            북마크 페이지입니다
+            <Gnb item={bookmark}></Gnb>
         </div>
     )
 }
