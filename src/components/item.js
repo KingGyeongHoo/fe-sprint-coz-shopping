@@ -73,7 +73,7 @@ export default function Item({ item }) {
     `
 
 
-    const Bookmark_img = styled.img`
+    const BookmarkImg = styled.img`
     position: absolute;
     top : 90%;
     left : 90%;
@@ -105,7 +105,7 @@ export default function Item({ item }) {
     box-shadow: 1px 1px 5px;
     `
 
-    const ModalBookmark_img = styled.img`
+    const ModalBookmarkImg = styled.img`
     width:30px;
     height:30px;
     position: absolute;
@@ -139,15 +139,15 @@ export default function Item({ item }) {
                     <ModalBackground onClick={() => setModal(!modal)}>
                         <ModalImg item={item}></ModalImg>
                         {isInBookmark() ? 
-                <ModalBookmark_img src={bookmark_on} onClick={() => dispatch(removeBookmarks(item))}></ModalBookmark_img> :
-                <ModalBookmark_img src={bookmark_off} onClick={() => dispatch(setBookmarks(item))}></ModalBookmark_img>}
+                <ModalBookmarkImg src={bookmark_on} onClick={() => dispatch(removeBookmarks(item))}></ModalBookmarkImg> :
+                <ModalBookmarkImg src={bookmark_off} onClick={() => dispatch(setBookmarks(item))}></ModalBookmarkImg>}
                 <ModalSpan>{item.title ? item.title : item.brand_name}</ModalSpan>
                     </ModalBackground> :
                     ''}
                 <ItemImage src={item['type'] === 'Brand' ? item.brand_image_url : item.image_url} onClick={() => setModal(!modal)}></ItemImage>
                 {isInBookmark() ? 
-                <Bookmark_img src={bookmark_on} onClick={() => dispatch(removeBookmarks(item))}></Bookmark_img> :
-                <Bookmark_img src={bookmark_off} onClick={() => dispatch(setBookmarks(item))}></Bookmark_img>}
+                <BookmarkImg src={bookmark_on} onClick={() => dispatch(removeBookmarks(item))}></BookmarkImg> :
+                <BookmarkImg src={bookmark_off} onClick={() => dispatch(setBookmarks(item))}></BookmarkImg>}
             </>
         )
     }
