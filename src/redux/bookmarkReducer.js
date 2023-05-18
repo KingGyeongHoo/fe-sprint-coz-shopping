@@ -1,6 +1,7 @@
 const bookmarkReducer = (state = [], action) => {
     switch (action.type) {
         case "SET_BOOKMARK":
+            console.log(action.payload)
             if(state === []){
                 return [action.payload]
             } else {

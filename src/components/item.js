@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Toast from "./toast";
 import { useState } from "react";
 import bookmark_off from '../image/bookmark_off.png'
 import bookmark_on from '../image/bookmark_on.png'
@@ -28,9 +29,9 @@ export default function Item({ item }) {
     const ItemImage = styled.img`
     width:300px;
     height:300px;
-    border:1px black solid;
-    border-radius: 10px;
+    border-radius: 10px 10px 0px 0px;
     background-size: cover;
+    border-bottom: 10px solid #4D9078;
     `
 
     const SpanContainer = styled.div`
@@ -44,11 +45,13 @@ export default function Item({ item }) {
     width:250px;
     text-align: left;
     font-size: 20px;
+    color:#4D9078;
+    font-size: 20px;
     `
     const ItemDiscount = styled.span`
     width:50px;
     text-align: right;
-    color: blue;
+    color: #B4436C;
     `
     const ItemSubtitle = styled.span`
     width:300px;
@@ -70,7 +73,7 @@ export default function Item({ item }) {
     `
 
 
-    const Bookmark_img = styled.img`
+    const BookmarkImg = styled.img`
     position: absolute;
     top : 90%;
     left : 90%;
@@ -102,7 +105,7 @@ export default function Item({ item }) {
     box-shadow: 1px 1px 5px;
     `
 
-    const ModalBookmark_img = styled.img`
+    const ModalBookmarkImg = styled.img`
     width:30px;
     height:30px;
     position: absolute;
@@ -114,15 +117,20 @@ export default function Item({ item }) {
     `
     const ModalSpan = styled.span`
     position: absolute;
-    top : 80%;
+    top : 80.5%;
     left : 19%;
     right : 0;
     bottom : 0;
     z-index:6;
     font-size:24px;
     color:white;
-    font-weight:bold;
+    font-family:'bitbit';
     `
+
+    // const setBookmark = () => {
+    //     dispatch(setBookmarks(item))
+
+    // }
 
     const ItemBoxComponent = () => {
         return (
@@ -131,15 +139,15 @@ export default function Item({ item }) {
                     <ModalBackground onClick={() => setModal(!modal)}>
                         <ModalImg item={item}></ModalImg>
                         {isInBookmark() ? 
-                <ModalBookmark_img src={bookmark_on} onClick={() => dispatch(removeBookmarks(item))}></ModalBookmark_img> :
-                <ModalBookmark_img src={bookmark_off} onClick={() => dispatch(setBookmarks(item))}></ModalBookmark_img>}
+                <ModalBookmarkImg src={bookmark_on} onClick={() => dispatch(removeBookmarks(item))}></ModalBookmarkImg> :
+                <ModalBookmarkImg src={bookmark_off} onClick={() => dispatch(setBookmarks(item))}></ModalBookmarkImg>}
                 <ModalSpan>{item.title ? item.title : item.brand_name}</ModalSpan>
                     </ModalBackground> :
                     ''}
                 <ItemImage src={item['type'] === 'Brand' ? item.brand_image_url : item.image_url} onClick={() => setModal(!modal)}></ItemImage>
                 {isInBookmark() ? 
-                <Bookmark_img src={bookmark_on} onClick={() => dispatch(removeBookmarks(item))}></Bookmark_img> :
-                <Bookmark_img src={bookmark_off} onClick={() => dispatch(setBookmarks(item))}></Bookmark_img>}
+                <BookmarkImg src={bookmark_on} onClick={() => dispatch(removeBookmarks(item))}></BookmarkImg> :
+                <BookmarkImg src={bookmark_off} onClick={() => dispatch(setBookmarks(item))}></BookmarkImg>}
             </>
         )
     }
@@ -195,14 +203,4 @@ export default function Item({ item }) {
             </div>
         )
     }
-    // <SpanContainer>
-    //     {item.title ? 
-    //     (item.type === 'Category' ? <ItemTitle>#{item.title}</ItemTitle> : <ItemTitle>{item.title}</ItemTitle> )  : <ItemTitle>{item.brand_name}</ItemTitle>}
-    //     {item.discountPercentage ? <ItemDiscount>{item.discountPercentage}%</ItemDiscount>
-    //     : ''}
-    //     {item.sub_title ? <ItemSubtitle>{item.sub_title}</ItemSubtitle> : ''}
-    //     {item.price ? <ItemPrice>{item.price.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</ItemPrice> : ''}
-    //     {item.follower ? <ItemFollower>관심 고객수</ItemFollower> : ''}
-    //     {item.follower ? <Follower>{item.follower.toLocaleString()}명</Follower> : ''}
-    // </SpanContainer>
 }

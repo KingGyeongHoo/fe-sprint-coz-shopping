@@ -1,10 +1,7 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-color: #FFFFF3;
+  font-family:'bitbit';
 }
 
 code {
@@ -19,6 +16,11 @@ code {
   font-style: normal;
 }
 
+@font-face{
+  font-family:'bitbit';
+  src:url('//cdn.df.nexon.com/img/common/font/DNFBitBit-Regular.woff'),url('//cdn.df.nexon.com/img/common/font/DNFBitBit-Regular.woff2') ;
+}
+
 .dropdownContents {
   text-align: left;
   width: 90%;
@@ -26,9 +28,10 @@ code {
   display: flex;
   align-items: center;
   padding: 0% 5%;
+  color: #B4436C;
 }
 .dropdownContents:hover:not(:first-child){
-  background-color: aquamarine;
+  background-color: #E0E3DA;
 }
 
 .itemBox{

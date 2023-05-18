@@ -17,6 +17,7 @@ const HeaderDiv = styled.div`
         align-items: center;
         text-align: center;
         position: sticky;
+        background-color: #5FAD56;
     `
     const Logo = styled.div`
         text-align: center;
@@ -42,7 +43,7 @@ const HeaderDiv = styled.div`
     `
     const Dropdown = styled.div`
         background-color: white;
-        border: 1px solid black;
+        border: 5px solid #B4436C;
         width:180px;
         height:150px;
         position: absolute;
@@ -62,18 +63,18 @@ export default function Header() {
     }
 
     return (
-        <div>
+        <>
             <BrowserRouter>
             <HeaderDiv>
                 <Logo><Link to='/'><Img src={logo}></Img></Link></Logo>
-                <Title><Link to='/'>KingGyeongHoo Mall</Link></Title>
+                <Title><Link to='/' style={{ textDecoration: "none", color:'#F2C14E' }}>KingGyeongHoo Mall</Link></Title>
                 <Menubar><Img src={bar} onClick={dropdownHandler}></Img></Menubar>
             </HeaderDiv>
             {dropdown ?
                 <Dropdown onClick={dropdownHandler}>
-                    <div className="dropdownContents">OOO님, 안녕하세요!</div>
-                    <div className="dropdownContents dropdown_click"><img src={merchandise_icon}/>&nbsp; <Link to='/list'>상품 리스트</Link></div>
-                    <div className="dropdownContents dropdown_click"><img src={bookmark_icon}/>&nbsp; <Link to='/bookmark'>북마크</Link></div>
+                    <div className="dropdownContents">송경후님, 안녕하세요!</div>
+                    <div className="dropdownContents dropdown_click"><img src={merchandise_icon}/>&nbsp; <Link to='/list' style={{ textDecoration: "none", color:'#566270' }}>상품 리스트</Link></div>
+                    <div className="dropdownContents dropdown_click"><img src={bookmark_icon}/>&nbsp; <Link to='/bookmark' style={{ textDecoration: "none", color:'#566270' }}>북마크</Link></div>
                 </Dropdown> : ''}
                 <Routes>
                     <Route path="/" element={<Main />}></Route>
@@ -81,6 +82,6 @@ export default function Header() {
                     <Route path="/bookmark" element={<Bookmark/>}></Route>
                 </Routes>
             </BrowserRouter>
-        </div>
+        </>
     )
 }

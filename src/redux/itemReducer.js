@@ -1,8 +1,5 @@
-const initialState = {
-    item: [],
-};
 
-const itemReducer = (state = initialState, action) => {
+const itemReducer = (state = [], action) => {
     switch (action.type) {
         case "SET_ITEMS":
             return action.payload
