@@ -37,3 +37,27 @@ code {
 .itemBox{
   height:400px;
 }
+
+@keyframes moveleft {
+  /* 효과를 동작시간 동안 0 ~ 1까지 */
+    0% {
+      left:100%;
+    }
+    50% {
+      left:83%;
+    }
+
+    100%{
+      left:100%;
+    }
+  }
+
+  .mainListContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    padding:20px;
+    align-items: left;
+    justify-content: left;
+    margin:0 0 40px 160px;
+  }
