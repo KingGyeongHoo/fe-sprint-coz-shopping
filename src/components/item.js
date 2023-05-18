@@ -9,6 +9,8 @@ import { setBookmarks, removeBookmarks } from "../redux/action";
 
 export default function Item({ item }) {
     const [modal, setModal] = useState(false)
+    const [toast, setToast] = useState(false)
+    const [toastAlert, setToastAlert] = useState('')
     const dispatch = useDispatch()
     const bookmark = useSelector(state => state.bookmark)
     const isInBookmark = () =>{
@@ -18,7 +20,6 @@ export default function Item({ item }) {
             return false
         }
     }
-    console.log(isInBookmark())
 
     const ItemBox = styled.div`
     width:300px;
@@ -84,7 +85,7 @@ export default function Item({ item }) {
     const ModalBackground = styled.div`
     background-color: rgba(0,0,0,0.2);
     position: fixed;
-    z-index: 4;
+    z-index: 1;
     top: 0;
     left: 0;
     right:0;
@@ -92,6 +93,7 @@ export default function Item({ item }) {
     display: flex;
     align-items: center;
     justify-content: center;
+
     `
 
     const ModalImg = styled.div`
@@ -113,7 +115,7 @@ export default function Item({ item }) {
     left : 17%;
     right : 0;
     bottom : 0;
-    z-index:6;
+    z-index:7;
     `
     const ModalSpan = styled.span`
     position: absolute;
@@ -127,10 +129,19 @@ export default function Item({ item }) {
     font-family:'bitbit';
     `
 
-    // const setBookmark = () => {
-    //     dispatch(setBookmarks(item))
+    const setBookmark = () => {
+        dispatch(setBookmarks(item))
+        setToast(true)
+        setToastAlert('🟢 상품이 북마크에 추가되었습니다')
+        setTimeout(() => setToast(false), 2900)
+    }
+    const removeBookmark = () => {
+        dispatch(removeBookmarks(item))
+        setToast(true)
+        setToastAlert('🔴 상품이 북마크에서 제거되었습니다')
+        setTimeout(() => setToast(false), 2900)
 
-    // }
+    }
 
     const ItemBoxComponent = () => {
         return (
@@ -139,15 +150,16 @@ export default function Item({ item }) {
                     <ModalBackground onClick={() => setModal(!modal)}>
                         <ModalImg item={item}></ModalImg>
                         {isInBookmark() ? 
-                <ModalBookmarkImg src={bookmark_on} onClick={() => dispatch(removeBookmarks(item))}></ModalBookmarkImg> :
-                <ModalBookmarkImg src={bookmark_off} onClick={() => dispatch(setBookmarks(item))}></ModalBookmarkImg>}
-                <ModalSpan>{item.title ? item.title : item.brand_name}</ModalSpan>
+                        <ModalBookmarkImg src={bookmark_on} onClick={removeBookmark}></ModalBookmarkImg> :
+                        <ModalBookmarkImg src={bookmark_off} onClick={setBookmark}></ModalBookmarkImg>}
+                        <ModalSpan>{item.title ? item.title : item.brand_name}</ModalSpan>
                     </ModalBackground> :
                     ''}
                 <ItemImage src={item['type'] === 'Brand' ? item.brand_image_url : item.image_url} onClick={() => setModal(!modal)}></ItemImage>
                 {isInBookmark() ? 
-                <BookmarkImg src={bookmark_on} onClick={() => dispatch(removeBookmarks(item))}></BookmarkImg> :
-                <BookmarkImg src={bookmark_off} onClick={() => dispatch(setBookmarks(item))}></BookmarkImg>}
+                <BookmarkImg src={bookmark_on} onClick={removeBookmark}></BookmarkImg> :
+                <BookmarkImg src={bookmark_off} onClick={setBookmark}></BookmarkImg>}
+                {toast ? <Toast alert={toastAlert} / > : ''}
             </>
         )
     }
@@ -156,7 +168,7 @@ export default function Item({ item }) {
         return (
             <div className="itemBox">
                 <ItemBox item={item}>
-                    <ItemBoxComponent />
+                    <ItemBoxComponent style={{position:'relative'}} />
                     <SpanContainer>
                         <ItemTitle>{item.title}</ItemTitle>
                         <ItemDiscount>{item.discountPercentage}%</ItemDiscount>

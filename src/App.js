@@ -14,7 +14,6 @@ function App() {
       dispatch(setItems(res.data))
     })
   }, [])
-  console.log('hi')
   return (
     <>
       <Header />

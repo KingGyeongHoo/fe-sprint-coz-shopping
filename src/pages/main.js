@@ -23,7 +23,6 @@ const MainListTitle = styled.p`
 export default function Main() {
     const item = useSelector(state => state.item)
     const bookmark = useSelector(state => state.bookmark)
-    console.log(bookmark)
     return (
         <>
             <MainListTitle>상품 리스트</MainListTitle>

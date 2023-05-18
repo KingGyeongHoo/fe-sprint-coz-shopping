@@ -8,14 +8,21 @@ const ToastContainer = styled.div`
     right: 0;
     width:300px;
     height:50px;
-    background-color: black;
+    background-color: #FFFFF3;
+    border: 5px solid #F2C14E;
     color:black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+    animation: moveleft 3s;
 `
 
-export default function Toast(){
+export default function Toast({alert}){
+
     return(
         <ToastContainer>
-            토스트
+            {alert}
         </ToastContainer>
     )
 }
